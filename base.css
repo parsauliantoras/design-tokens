@@ -1,0 +1,186 @@
+/* Base layer, shared by torasparsaulian.com and Pipeline Lab. Raw values with neutral names. */
+
+/* The fallback for the display font, used until the web font arrives or when it is blocked.
+   Arial (and the fonts with the same letter widths) is wider than Bricolage Grotesque:
+   measured 4.608em against 4.048em for "Parsaulian" at weight 600, which is 14% more. At 85%
+   it is a little narrower than the web font, so a name sized to fill the screen is never cut. */
+@font-face {
+  font-family: "Display Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
+  font-weight: 100 500;
+  size-adjust: 85%;
+}
+
+/* The family names at the end are for browsers that match local() by family name only
+   (WebKit on Linux): they then take the regular face, which is narrower than the bold one. */
+@font-face {
+  font-family: "Display Fallback";
+  src:
+    local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Arimo Bold"),
+    local("Arial"), local("Liberation Sans"), local("Arimo");
+  font-weight: 501 900;
+  size-adjust: 85%;
+}
+
+/* A second fallback for systems with no Arial-width font. DejaVu Sans is the usual default
+   sans-serif on Linux and is much wider: measured in CI, the name was 5.48em wide in WebKit on
+   Linux against 4.048em for the web font. 70% brings it under the web font's width. */
+@font-face {
+  font-family: "Display Fallback Wide";
+  src: local("DejaVu Sans Bold"), local("DejaVuSans-Bold"), local("DejaVu Sans");
+  size-adjust: 70%;
+}
+
+:root {
+  --white: #ffffff;
+  --grey-50: #f5f6f6;
+  --grey-100: #ecedee;
+  --grey-400: #a4a9ae;
+  --grey-500: #7c828a;
+  --grey-550: #6e747b;
+  --grey-600: #5b6168;
+  --grey-900: #1c1e20;
+  --grey-950: #17191b;
+
+  /* Accent and state ramps (Pipeline Lab ADR-0023). Each site's semantic layer picks steps
+     that meet its contrast pairs. */
+  --blue-100: #e6effa;
+  --blue-300: #8db4e8;
+  --blue-500: #2f6fc6;
+  --blue-700: #1d4f94;
+  --blue-900: #11305a;
+  --green-100: #e5f4ea;
+  --green-300: #86c79c;
+  --green-500: #2e8b57;
+  --green-700: #1e6b40;
+  --green-900: #0f3d24;
+  --red-100: #fbe9e7;
+  --red-200: #f4b3a9;
+  --red-300: #ef9a8f;
+  --red-500: #c8402e;
+  --red-700: #9c2b1d;
+  --red-800: #7a1f14;
+  --red-900: #5c170e;
+  --amber-100: #fdf2dc;
+  --amber-300: #f2c46b;
+  --amber-500: #b97a0b;
+  --amber-700: #8a5a06;
+  --amber-900: #4f3303;
+
+  /* --font-display-loaded is set by the site's fonts.ts on the root <html>. */
+  --font-family-display:
+    var(--font-display-loaded, "Display Fallback"), "Display Fallback", "Display Fallback Wide", system-ui,
+    sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+}
+
+/* The fallback for the body font (Geist), used until it arrives or when it is blocked. Arial
+   and the fonts with the same letter widths. size-adjust is measured on a page's own
+   statements (torasparsaulian.com's measuring script), so a paragraph keeps about the same
+   length when Geist swaps in. Measured on 2026-10-14 in Chromium: Geist 36,413 px against
+   Arial 35,542 px for all statements on one line at 100 px, so 102.4% (WebKit: the same). */
+@font-face {
+  font-family: "Body Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
+  size-adjust: 102.4%;
+}
+
+/* The fallback for the display font at text sizes (intros, headings). "Display Fallback" is
+   tuned for the name that fills the screen and is too narrow here: with it, the intro wrapped
+   differently and the page moved by 0.066 when Bricolage arrived. At text sizes Bricolage
+   uses a small optical size and is about as wide as Arial. Measured on 2026-10-14 on
+   torasparsaulian.com, in Chromium and WebKit: the intro at weight 400, 99.8%;
+   the value headings at weight 600, 100.4%. */
+@font-face {
+  font-family: "Display Text Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
+  font-weight: 100 500;
+  size-adjust: 99.8%;
+}
+
+@font-face {
+  font-family: "Display Text Fallback";
+  src:
+    local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Arimo Bold"),
+    local("Arial"), local("Liberation Sans"), local("Arimo");
+  font-weight: 501 900;
+  size-adjust: 100.4%;
+}
+
+:root {
+  --font-family-display-text:
+    var(--font-display-loaded, "Display Text Fallback"), "Display Text Fallback", system-ui, sans-serif;
+}
+
+/* --font-body-loaded is set by the site's fonts.ts, on the root <html> or on a wrapper that
+   carries data-body-font. A token is resolved where it is declared, so the stack is declared
+   on that wrapper too; where the variable is not set, the fallback is used. */
+:root,
+[data-body-font] {
+  --font-family-body: var(--font-body-loaded, "Body Fallback"), "Body Fallback", system-ui, sans-serif;
+}
+
+/* A small type scale and the line length. The intro is at least 1.5 times the heading size
+   at every screen width. */
+:root {
+  --font-size-body: 1.125rem;
+  --font-size-heading: 1.5rem;
+  --font-size-intro-min: 2.25rem;
+  --font-size-intro-max: 3rem;
+  --line-height-body: 1.6;
+  --line-height-heading: 1.2;
+  --measure: 38rem;
+  --measure-wide: 60rem;
+}
+
+/* The fallback for the monospace font (JetBrains Mono). Monospace faces share a cell width of
+   about 0.6em, so the system mono faces need almost no adjustment. Measured on 2026-10-17 in
+   WebKit with Pipeline Lab's scripts/measure-mono-fallback.ts on the page's own mono strings at
+   100 px: JetBrains Mono 6,060 px against Menlo 6,081 px, so 99.7% (600/602 em cells). */
+@font-face {
+  font-family: "Mono Fallback";
+  src: local("Menlo"), local("Consolas"), local("DejaVu Sans Mono"), local("Liberation Mono");
+  size-adjust: 99.7%;
+}
+
+:root {
+  /* --font-mono-loaded is set by the site's fonts.ts on the root <html>. */
+  --font-family-mono: var(--font-mono-loaded, "Mono Fallback"), "Mono Fallback", ui-monospace, monospace;
+
+  /* A 4 px based spacing scale. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Motion. Each step stays on screen at least this long (an estimate to tune on a phone). */
+  --duration-step-min: 300ms;
+  --duration-step-min-reduced: 150ms;
+  --duration-ui: 150ms;
+
+  /* The smallest hit target. */
+  --size-hit-min: 48px;
+}
+
+:root {
+  /* Lines and rings. */
+  --size-border: 1px;
+  --size-hairline: 1px;
+  --size-focus-ring: 3px;
+
+  /* The tallest a scrolling list may grow before it scrolls. */
+  --size-list-max: 20rem;
+
+  /* Corner radius (final values are chosen with the site's look). */
+  --radius-1: 0.25rem;
+  --radius-2: 0.5rem;
+  --radius-round: 999px;
+
+  /* The darkest grey as a scrim behind a modal sheet. */
+  --grey-950-scrim: rgb(23 25 27 / 60%);
+}

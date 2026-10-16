@@ -1,0 +1,11 @@
+{
+  "name": "@torasparsaulian/tokens",
+  "version": "0.1.0",
+  "description": "Base design tokens and fonts shared by torasparsaulian.com and Pipeline Lab.",
+  "license": "MIT",
+  "files": ["base.css", "fonts/"],
+  "exports": {
+    "./base.css": "./base.css",
+    "./fonts/*": "./fonts/*"
+  }
+}
