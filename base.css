@@ -66,6 +66,14 @@
   --amber-500: #b97a0b;
   --amber-700: #8a5a06;
   --amber-900: #4f3303;
+  /* The signature colour (Pipeline Lab ADR-0024): OKLCH hue 222, chroma 0.1, lightness steps
+     0.95 / 0.78 / 0.6 / 0.46 / 0.3. At least 60° (OKLCH hue) from every red, amber and green
+     step. */
+  --signature-100: #daf4fd;
+  --signature-300: #67c6e5;
+  --signature-500: #268dab;
+  --signature-700: #00627a;
+  --signature-900: #013441;
 
   /* --font-display-loaded is set by the site's fonts.ts on the root <html>. */
   --font-family-display:
@@ -162,6 +170,8 @@
   --duration-step-min: 300ms;
   --duration-step-min-reduced: 150ms;
   --duration-ui: 150ms;
+  /* A fast start and a soft stop, for UI changes (Pipeline Lab ADR-0024). */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
 
   /* The smallest hit target. */
   --size-hit-min: 48px;

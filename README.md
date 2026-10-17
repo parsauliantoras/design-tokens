@@ -36,7 +36,7 @@ declared:
 |---|---|---|
 | `--font-display-loaded` | Bricolage Grotesque | `--font-family-display`, `--font-family-display-text` |
 | `--font-body-loaded` | Geist | `--font-family-body` |
-| `--font-mono-loaded` | JetBrains Mono (400) | `--font-family-mono` |
+| `--font-mono-loaded` | Geist Mono (400) or JetBrains Mono (400); both files ship, a site loads one | `--font-family-mono` |
 
 A site that loads the body font on one page only may set `--font-body-loaded` on a wrapper with
 `data-body-font` instead; `base.css` redeclares the body stack there.

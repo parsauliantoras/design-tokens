@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 (2026-10-18)
+
+Additive only: nothing was removed or changed, so a site on 0.1.0 can move up without changes.
+
+- New: the signature ramp `--signature-100` to `--signature-900` (OKLCH hue 222, chroma 0.1),
+  Pipeline Lab's pick (its ADR-0024). The blue ramp stays.
+- New: `--ease-out` (`cubic-bezier(0.2, 0, 0, 1)`), for UI changes with `--duration-ui`.
+- Fonts: Geist Mono 400 added (OFL, `GeistMono-OFL.txt`), the monospace face Pipeline Lab picked
+  (its ADR-0024). JetBrains Mono stays.
+
 ## 0.1.0 (2026-10-17)
 
 - `base.css` moved from torasparsaulian.com, from commit
